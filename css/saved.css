@@ -1,0 +1,41 @@
+.nav .saved-memes-li span {
+    font-size: .7em;
+    margin-inline-start: .4em;
+    margin-block-start: .3em;
+}
+
+.saved-memes {
+    width: 95%;
+    margin: 0 auto;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.no-memes {
+    color: #88898e;
+    font-size: 1.2em;
+    margin-block-start: 40px;
+}
+
+.saved-memes li {
+    cursor: pointer;
+    background-color: #383b42;
+    margin: 30px;
+    text-align: center;
+    padding: 30px 100px;
+    border-radius: 50px;
+    position: relative;
+}
+
+.saved-memes img {
+    height: 200px;
+    width: 200px;
+    border-radius: 35px;
+}
+
+.saved-memes i {
+    position: absolute;
+    font-size: 1.5em;
+    right: 20px;
+    color: #33be6d;
+}

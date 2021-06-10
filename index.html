@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="imgs/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="imgs/favicon.ico" type="image/x-icon" />
+    <title>Meme Generator</title>
+</head>
+
+<body onload="onInit()">
+
+    <div class="grid-layout">
+
+        <header>
+            <div class="header-container container flex space-between align-items-center">
+                <h2 class="logo" onclick="openGallery()">Meme<span>G</span>enerator</h2>
+                <ul class="nav flex-center clean-list">
+                    <li class="gallery-li li-focus"><a class="flex-center" href="#" onclick="openGallery()">Gallery</a>
+                    </li>
+                    <li class="saved-memes-li"><a class="flex-center" href="#" onclick="openSavedMemes()">Memes
+                            <span></span></a></li>
+                </ul>
+                <button class="hamburger" onclick="toggleMenu()">
+                    <img src="imgs/icons/hamburger.png" alt="Hamburger">
+                </button>
+            </div>
+        </header>
+
+        <div class="main-content">
+
+            <div class="editor hide">
+                <section class="canvas-container">
+                    <img src="imgs/background/background-image.png" />
+                    <canvas id="myCanvas" height="500" width="500" onmousedown="onHandleMove(event)" onmouseup="onHandleMove(event)" onmousemove="onHandleMove(event)" ontouchstart="onHandleMove(event)" ontouchmove="onHandleMove(event)" ontouchend="onHandleMove(event)">
+                        Sorry, canvas not supported
+                    </canvas>
+                </section>
+
+                <section class="controls-container">
+                    
+                    <input type="text" class="line-input" placeholder="Enter your line" oninput="onChangeLine(value)" />
+
+                    <div class="line-btns">
+                        <button class="switch" title="switch focus" onclick="onSwitchLine()"><img
+                                src="imgs/icons/switch.png" /></button>
+                        <button class="add" title="add line" onclick="onAddLine()"><img
+                                src="imgs/icons/add-row.png" /></button>
+                        <button class="delete" title="delete selected line" onclick="onRemoveLine()"><img
+                                src="imgs/icons/delete.png" /></button>
+                    </div>
+
+                    <div class="text-btns">
+                        <button class="increase" title="increase font" onclick="onChangeSize(true)"><img
+                                src="imgs/icons/increase-font.png" /></button>
+                        <button class="decrease" title="decrease font" onclick="onChangeSize(false)"><img
+                                src="imgs/icons/decrease-font.png" /></button>
+                        <button class="align-left" title="align left" onclick="onChangeAlign('left')"><img
+                                src="imgs/icons/align-left.png" /></button>
+                        <button class="align-center" title="align center" onclick="onChangeAlign('center')"><img
+                                src="imgs/icons/align-center.png" /></button>
+                        <button class="align-right" title="align right" onclick="onChangeAlign('right')"><img
+                                src="imgs/icons/align-right.png" /></button>
+
+                        <select class="font-family" title="font family" onchange="onChangeFont(value)">
+                            <option value="Impact">Impact</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Tahoma">Tahoma</option>
+                            <option value="Verdana">Verdana</option>
+                            <option value="Comic Sans MS">Comic Sans MS</option>
+                            <option value="MV Boli">MV Boli</option>
+                        </select>
+
+                        <label class="stroke-color" for="strokeColorInput">
+                            <img title="stroke color" src="imgs/icons/stroke-color.png" />
+                        </label>
+                        <input type="color" id="strokeColorInput" class="stroke-color" value="#ffffff"
+                            onchange="onChangeColor(value, true)" />
+
+                        <label class="fill-color" for="fillColorInput">
+                            <img title="fill color" src="imgs/icons/fill-color.png" />
+                        </label>
+                        <input type="color" id="fillColorInput" class="fill-color" value="#000000"
+                            onchange="onChangeColor(value, false)" />
+                    </div>
+
+                    <div class="move-btns">
+                        <button title="move left" onclick="onMoveLine('x', -40)"><img
+                                src="imgs/icons/arrow-move-left.png" /></button>
+                        <button title="move down" onclick="onMoveLine('y', 30)"><img
+                                src="imgs/icons/arrow-move-down.png" /></button>
+                        <button title="move up" onclick="onMoveLine('y', -30)"><img
+                                src="imgs/icons/arrow-move-up.png" /></button>
+                        <button title="move right" onclick="onMoveLine('x', 40)"><img
+                                src="imgs/icons/arrow-move-right.png" /></button>
+                    </div>
+
+                    <button class="save" onclick="onSave()">
+                        <i class="fas fa-save"></i>
+                        Save
+                    </button>
+
+                    <button class="download-btn" onclick="onDownload()">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </button>
+                    <a href="#" class="download-link" style="display: none"></a>
+
+                </section>
+
+                <section class="stickers"></section>
+            </div>
+
+            <div class="gallery-container">
+                
+                <section class="filter flex align-items-center">
+                    <div class="search flex align-items-center">
+                        <input type="text" placeholder="Search" oninput="onChangeSearch()">
+                        <img src="imgs/icons/magnifying-glass.png" onclick="onChangeSearch()"
+                        alt="Magnifying Glass">
+                    </div>
+                    
+                    <div class="filter-btns">
+                        <div class="topics"></div>
+                        <button class="more-btn flex-center" onclick="onNextIdx()">More</button>
+                    </div>
+                </section>
+                
+                <div class="gallery-padding">
+                    <div class="gallery"></div>
+                </div>
+                
+            </div>
+
+            <div class="saved-memes hide"></div>
+
+        </div>
+
+    </div>
+
+    <script src="js/services/util-service.js"></script>
+    <script src="js/services/gallery-service.js"></script>
+    <script src="js/services/meme-service.js"></script>
+    <script src="js/services/saved-service.js"></script>
+    <script src="js/gallery-controller.js"></script>
+    <script src="js/meme-controller.js"></script>
+    <script src="js/saved-controller.js"></script>
+</body>
+
+</html>
