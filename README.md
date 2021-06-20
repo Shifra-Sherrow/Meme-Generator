@@ -1,1 +1,1 @@
-The most worthwhile meme generator on the net! game style.
+The coolest meme generator on the internet!
